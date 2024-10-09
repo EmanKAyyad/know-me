@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <title>Form</title>
+  </head>
+  <body>
+    <h1>Welcome!</h1>
+    <form action="/authenticate" method="POST">
+      <div class="form-container">
+        <div class="input-field">
+          <label for="name">Username</label>
+          <input type="text" name="name" />
+        </div>
+        <div class="input-field">
+          <label for="password">Password</label>
+          <input type="password" name="password" />
+        </div>
+        <button class="submit-button" type="submit">Login</button>
+      </div>
+    </form>
+  </body>
+</html>

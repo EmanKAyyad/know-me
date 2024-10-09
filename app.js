@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 app.set("views", "views")
 const bodyParser = require("body-parser");
 const loginRoute = require("./routes/login");
@@ -16,7 +16,7 @@ app.use(loginRoute)
 app.use(homeRoute);
 app.use(userRoute)
 
-app.use((request, response, next) => {
+app.use("/404", (request, response, next) => {
   response.status(404).send(`<h1>Page Not Found</h1>`);
 });
 

@@ -4,7 +4,7 @@ const path = require("path");
 const rootDir = require("../utility/path");
 
 router.get("/user", (request, response, next) => {
-  response.sendFile(path.join(rootDir, "views", "user.html"));
+  response.render(path.join(rootDir, "views", "user.ejs"));
 });
 
 module.exports = router;

@@ -1,0 +1,35 @@
+h1 {
+    font-size: 72px;
+    margin: 4rem auto;
+    text-align: center;
+}
+div.form-container  {
+    margin: 4rem auto 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: min(400px, 50%)
+}
+
+div.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 1rem;
+}
+
+.input-field > input {
+    height: 2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--light-gray);
+}
+
+button.submit-button {
+    border: none;
+    border-radius: 5px;
+    height: 2rem;
+    background-color: var(--deep-blue);
+    color: #ffffff;
+    font-size: 1rem;
+}

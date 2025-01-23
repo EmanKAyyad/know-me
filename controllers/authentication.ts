@@ -1,15 +1,24 @@
-const User = require("../models/user");
+import User from "@app/models/user";
 
 class Authentication {
-  static authenticate({ name, password }) {
+  static authenticate({ name, password }: {name: string, password: string}) {
     return new Promise((res, rej) => {
       const token = this.createToken(name, password);
-      new User({ name, password, token });
-      res(token);
+      const user = new User({ name, password, token });
+      user.add().then(
+        (r) => {
+          console.log(r);
+          res(null);
+        },
+        (err) => {
+          console.log(err);
+          rej(err)
+        }
+      );
     });
   }
 
-  static createToken = (username, password) => {
+  static createToken = (username: string, password: string) => {
     if (!username) {
       throw new Error("Username not provided");
     }
@@ -21,7 +30,7 @@ class Authentication {
     return `${username}-${password}-${new Date().getTime()}`;
   };
 
-  static validateToken(token) {
+  static validateToken(token: string) {
     const timestamp = token.slice(token.lastIndexOf("-"));
     console.log(timestamp);
   }

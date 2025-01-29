@@ -19,8 +19,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc",
-    "start": "ts-node -r tsconfig-paths/register app.ts"
+    "compile": "tsc --build ./public/ts/tsconfig.json",
+    "start": "ts-node -r tsconfig-paths/register app.ts",
+    "serve": "nodemon --ext ts --exec \"npm run compile && npx ts-node -r tsconfig-paths/register app.ts\""
+,
+    "build": "tsc && shx cp -r public dist/"
   },
   "author": "Eman Ayyad",
   "license": "ISC"

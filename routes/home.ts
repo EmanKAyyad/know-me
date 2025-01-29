@@ -10,7 +10,9 @@ router.get(
     response: express.Response,
     _next: express.NextFunction
   ) => {
-    response.render(path.join(mainModuleDir, "views", "home.ejs"));
+    response.render(path.join(mainModuleDir, "views", "home.ejs"), {
+      pageTitle: "home",
+    });
   }
 );
 

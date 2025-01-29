@@ -11,6 +11,7 @@ export default class UserController {
       console.log(users);
       response.render("user", {
         users: users,
+        pageTitle: "profile"
       });
     });
   };

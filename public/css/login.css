@@ -25,11 +25,6 @@ div.input-field {
     border: 1px solid var(--light-gray);
 }
 
-button.submit-button {
-    border: none;
-    border-radius: 5px;
-    height: 2rem;
-    background-color: var(--deep-blue);
-    color: #ffffff;
-    font-size: 1rem;
+.create-account-button {
+    text-align: center;
 }

@@ -18,7 +18,49 @@ header img {
   width: 60px;
 }
 
-header ul.menu-items > li {
+ul.menu-items > li {
   display: inline-block;
   margin-inline-start: 0.5rem;
+}
+
+ul.menu-items > li.active {
+  font-weight: 700;
+}
+
+ul.menu-items > li.active > a {
+  text-decoration: none;
+}
+
+.uploader-container {
+  display: flex;
+  gap: 5px;
+  align-items: flex-end;
+}
+
+.uploader-container #uploader-button {
+  flex: 1 1 0px;
+}
+
+#preview-img {
+  border: 1px dotted var(--light-gray);
+  border-radius: 5px;
+  flex: 1 1 0px;
+  min-height: 100px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+/* components */
+/* button */
+button.km-btn {
+  border: none;
+  border-radius: 5px;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+button.km-btn--primary {
+  background-color: var(--deep-blue);
+  color: #ffffff;
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <script type="text/javascript" src="/js/create-new-account.js"></script>
+    <title>Sign in</title>
+  </head>
+  <body>
+    <h1>Create new account</h1>
+    <form action="/sign-in" method="POST">
+      <div class="form-container">
+        <div class="input-field">
+          <label for="name">Username</label>
+          <input type="text" name="name" />
+        </div>
+        <div class="input-field">
+          <label for="email">Email</label>
+          <input type="text" name="email" />
+        </div>
+        <div class="input-field">
+          <label for="fname">First Name</label>
+          <input type="text" name="fname" />
+        </div>
+        <div class="input-field">
+          <label for="lname">Last Name</label>
+          <input type="text" name="lname" />
+        </div>
+        <div class="input-field">
+          <label for="password">Password</label>
+          <input type="password" name="password" />
+        </div>
+        <div class="input-field">
+          <label for="cpassword">Confirm Password</label>
+          <input type="password" name="cpassword" />
+        </div>
+        <div class="input-field">
+          <label for="image">Image</label>
+          <div class="uploader-container">
+            <div id="preview-img"></div>
+            <button id="uploader-button" class="km-btn km-btn--primary" type="button">Choose File</button>
+          </div>
+          <input id="actual-uploader" type="file" hidden name="image" />
+        </div>
+        <button class="km-btn km-btn--primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </body>
+</html>

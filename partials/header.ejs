@@ -3,8 +3,8 @@
     <img src="/images/logo.png" alt="" />
   </div>
   <ul class="menu-items">
-    <li><a href="/home">Home</a></li>
-    <li><a href="/user">Profile</a></li>
+    <li <% if (pageTitle === 'home') { %>class="active" <% } %> ><a href="/home">Home</a></li>
+    <li <% if (pageTitle === 'profile') { %>class="active" <% } %>  ><a href="/user">Profile</a></li>
     <li>Logout</li>
   </ul>
 </header>

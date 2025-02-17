@@ -1,9 +1,9 @@
 import express from "express";
-const router = express.Router();
+const homeRouter = express.Router();
 import path from "path";
 import { mainModuleDir } from "@app/utility/path";
 
-router.get(
+homeRouter.get(
   "/home",
   (
     _request: express.Request,
@@ -16,4 +16,4 @@ router.get(
   }
 );
 
-module.exports = router;
+export default homeRouter;

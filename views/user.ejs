@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="icon" type="image/x-icon" href="/images/logo.png" />
     <title>My Profile</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- include('../partials/header.ejs', {pageTitle: pageTitle}) %>
     <h1>Profile</h1>
-    <script>
-    </script>
-</body>
+    <div>
+      <div>
+        <h1>Hello <%= user.fname + " " + user.lname %></h1>
+      </div>
+      <img src="<%= user.image%>" alt="" />
+    </div>
+  </body>
 </html>

@@ -1,22 +1,19 @@
-import User from "@app/models/user";
-
 class Authentication {
-  static authenticate({ name, password }: {name: string, password: string}) {
-    return new Promise((res, rej) => {
-      const token = this.createToken(name, password);
-      const user = new User({ name, password, token });
-      user.add().then(
-        (r) => {
-          console.log(r);
-          res(null);
-        },
-        (err) => {
-          console.log(err);
-          rej(err)
-        }
-      );
-    });
-  }
+  // static authenticate({ username, password }: {username: string, password: string}) {
+    // return new Promise((res, rej) => {
+    //   // const user = new User({ username, password });
+    //   user.add().then(
+    //     (r) => {
+    //       console.log(r);
+    //       res(null);
+    //     },
+    //     (err) => {
+    //       console.log(err);
+    //       rej(err)
+    //     }
+      // );
+    // });
+  // }
 
   static createToken = (username: string, password: string) => {
     if (!username) {

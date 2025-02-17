@@ -1,23 +1,21 @@
 import { getDB } from "@app/utility/database";
-
-const mongodb = require("mongodb");
+import { ObjectId } from "mongodb";
 
 export default class User {
-  name;
-  password;
-  token;
-  constructor({
-    name,
-    password,
-    token,
-  }: {
-    name: string;
-    password: string;
-    token: string;
-  }) {
-    this.name = name;
+  username: string;
+  password: string;
+  email: string;
+  fname: string;
+  lname: string;
+  image: string;
+
+  constructor({ username, password, email, fname, lname, image }: User) {
+    this.username = username;
     this.password = password;
-    this.token = token;
+    this.email = email;
+    this.fname = fname;
+    this.lname = lname;
+    this.image = image;
   }
 
   add() {
@@ -34,10 +32,10 @@ export default class User {
   }
 
   static fetchById(id: string) {
+    console.log("id", id);
     const db = getDB();
-    return db
-      .collection("users")
-      .find({ _id: new mongodb.ObjectId(id) })
-      .toArray();
+    return db.collection("users")
+      .find({ _id: new ObjectId(id) })
+      .next()
   }
-};
+}

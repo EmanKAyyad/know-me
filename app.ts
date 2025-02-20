@@ -16,7 +16,9 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(session({
-  secret: "know-me"
+  secret: "know-me",
+  resave: false,
+  saveUninitialized: false,
 }))
 app.use(express.static(path.join(__dirname, "public")));
 

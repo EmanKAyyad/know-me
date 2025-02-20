@@ -1,5 +1,5 @@
 import { getDB } from "@app/utility/database";
-import { ObjectId } from "mongodb";
+import { ObjectId, WithId } from "mongodb";
 
 export default class User {
   username: string;
@@ -34,8 +34,16 @@ export default class User {
   static fetchById(id: string) {
     console.log("id", id);
     const db = getDB();
-    return db.collection("users")
+    return db
+      .collection("users")
       .find({ _id: new ObjectId(id) })
-      .next()
+      .next();
+  }
+
+  static findByUsername(username: string): Promise<WithId<User>[]> {
+    const db = getDB();
+    return db.collection("users").find({ username }).toArray() as Promise<
+      WithId<User>[]
+    >;
   }
 }

@@ -1,19 +1,21 @@
-class Authentication {
-  // static authenticate({ username, password }: {username: string, password: string}) {
-    // return new Promise((res, rej) => {
-    //   // const user = new User({ username, password });
-    //   user.add().then(
-    //     (r) => {
-    //       console.log(r);
-    //       res(null);
-    //     },
-    //     (err) => {
-    //       console.log(err);
-    //       rej(err)
-    //     }
-      // );
-    // });
-  // }
+import User from "@app/models/user";
+import express from "express";
+
+export default class AuthenticationController {
+  static async authenticate(
+    request: express.Request,
+    response: express.Response
+  ) {
+    const { username, password } = request.body;
+    const matchingUsers = await User.findByUsername(username);
+    const user = matchingUsers.find((user) => user["password"] === password);
+    if (user) {
+      request.session.user = user;
+      response.redirect("/user/" + user._id);
+    } else {
+      throw new Error("Username or password are incorrect");
+    }
+  }
 
   static createToken = (username: string, password: string) => {
     if (!username) {
@@ -31,6 +33,13 @@ class Authentication {
     const timestamp = token.slice(token.lastIndexOf("-"));
     console.log(timestamp);
   }
+
+  static logout(request: express.Request, response: express.Response) {
+    request.session.destroy((error) => {
+      console.log("logout failed", error);
+      response.redirect("/")
+    });
+  }
 }
 
-module.exports = Authentication;
+module.exports = AuthenticationController;

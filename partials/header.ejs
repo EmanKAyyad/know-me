@@ -5,6 +5,10 @@
   <ul class="menu-items">
     <li <% if (pageTitle === 'home') { %>class="active" <% } %> ><a href="/home">Home</a></li>
     <li <% if (pageTitle === 'profile') { %>class="active" <% } %>  ><a href="/user">Profile</a></li>
-    <li>Logout</li>
+    <li>
+      <form action="POST">
+        <button type="submit">Logout</button>
+      </form>
+    </li>
   </ul>
 </header>

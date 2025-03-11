@@ -5,31 +5,45 @@ import signUpRoute from "./routes/sign-up";
 import homeRoute from "./routes/home";
 import userRoute from "./routes/user";
 import session from "express-session";
+import MongoStore from "connect-mongo";
+import { dbUrl } from "./utility/database";
 
 const app = express();
 const MongoConnect = require("./utility/database").MongoConnect;
+
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
 
-app.use(session({
-  secret: "know-me",
-  resave: false,
-  saveUninitialized: false,
-}))
+})
+
+app.use(
+  session({
+    secret: "know-me",
+    resave: false,
+    saveUninitialized: false,
+    store,
+    cookie: {
+      httpOnly: true,
+    },
+  })
+);
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(loginRoute);
-app.use(signUpRoute)
+app.use(signUpRoute);
 app.use(homeRoute);
 app.use(userRoute);
 
 app.use("/", (_req, res: express.Response) => {
-  res.redirect("/login")
-})
+  res.redirect("/login");
+});
 
 app.use(
   "/404",
@@ -44,5 +58,5 @@ app.use(
 
 MongoConnect(() => {
   app.listen(3000);
-  console.log("connected")
+  console.log("connected");
 });

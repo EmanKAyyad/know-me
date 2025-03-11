@@ -1,10 +1,11 @@
 import { MongoClient, Db } from "mongodb";
 let _db: Db;
+export const dbUrl =
+  "mongodb+srv://emanAdmin:planetmongo12@cluster0.xxb8h.mongodb.net/know-me?retryWrites=true&w=majority&appName=Cluster0";
 
+  
 export const MongoConnect = (callback: () => void) => {
-  MongoClient.connect(
-    "mongodb+srv://emanAdmin:planetmongo12@cluster0.xxb8h.mongodb.net/know-me?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  MongoClient.connect(dbUrl)
     .then((res) => {
       _db = res.db();
       callback();

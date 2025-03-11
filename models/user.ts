@@ -20,9 +20,7 @@ export default class User {
 
   add() {
     const db = getDB();
-
     if (!db) throw new Error("can't create user, no db found");
-
     return db.collection("users").insertOne(this);
   }
 
@@ -32,7 +30,6 @@ export default class User {
   }
 
   static fetchById(id: string) {
-    console.log("id", id);
     const db = getDB();
     return db
       .collection("users")
@@ -40,10 +37,29 @@ export default class User {
       .next();
   }
 
-  static findByUsername(username: string): Promise<WithId<User>[]> {
+  static findByUsername(username: string): Promise<WithId<IUserVM>[]> {
     const db = getDB();
     return db.collection("users").find({ username }).toArray() as Promise<
-      WithId<User>[]
+      WithId<IUserVM>[]
     >;
   }
+
+  static async checkIfEmailExists(email: string) {
+    const db = getDB();
+    return await db.collection("users").findOne({ email });
+  }
+
+  static async checkIfUsername(username: string) {
+    const db = getDB();
+    return await db.collection("users").findOne({ username });
+  }
 }
+
+export type IUserVM = {
+  username: string;
+  password: string;
+  email: string;
+  fname: string;
+  lname: string;
+  image: string;
+};

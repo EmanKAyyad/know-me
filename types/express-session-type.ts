@@ -1,7 +1,8 @@
-import User from "@app/models/user";
+import { IUserVM } from "@app/models/user";
+import { WithId } from "mongodb";
 
-declare module 'express-session' {
+declare module "express-session" {
   export interface SessionData {
-    user: User;
+    user: WithId<IUserVM>;
   }
 }

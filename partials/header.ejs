@@ -6,7 +6,7 @@
     <li <% if (pageTitle === 'home') { %>class="active" <% } %> ><a href="/home">Home</a></li>
     <li <% if (pageTitle === 'profile') { %>class="active" <% } %>  ><a href="/user">Profile</a></li>
     <li>
-      <form action="POST">
+      <form action="/logout" method="POST">
         <button type="submit">Logout</button>
       </form>
     </li>

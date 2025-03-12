@@ -1,0 +1,4 @@
+export const ERROR_CODES = {
+    UNAUHTORIZED: 401,
+    ALREADY_EXISTS: 409
+}

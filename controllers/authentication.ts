@@ -1,5 +1,7 @@
 import User from "@app/models/user";
 import express from "express";
+import * as argon2 from "argon2";
+import { ERROR_CODES } from "@app/utility/error-codes";
 
 export default class AuthenticationController {
   static async authenticate(
@@ -7,37 +9,31 @@ export default class AuthenticationController {
     response: express.Response
   ) {
     const { username, password } = request.body;
-    const matchingUsers = await User.findByUsername(username);
-    const user = matchingUsers.find((user) => user["password"] === password);
-    if (user) {
-      request.session.user = user;
-      response.redirect("/user/" + user._id);
-    } else {
+    const matchingUser = await User.checkIfUsername(username);
+
+    if (!matchingUser) {
       throw new Error("Username or password are incorrect");
     }
-  }
 
-  static createToken = (username: string, password: string) => {
-    if (!username) {
-      throw new Error("Username not provided");
+    try {
+      if (await argon2.verify(matchingUser["password"], password)) {
+        request.session.user = matchingUser;
+        response.redirect("/user/" + matchingUser._id);
+      } else {
+        response.statusCode = ERROR_CODES.UNAUHTORIZED;
+        response.send({ error: "Username or password are incorrect" });
+      }
+    } catch (err) {
+      console.log(err)
     }
-
-    if (!password) {
-      throw new Error("Password not provided");
-    }
-
-    return `${username}-${password}-${new Date().getTime()}`;
-  };
-
-  static validateToken(token: string) {
-    const timestamp = token.slice(token.lastIndexOf("-"));
-    console.log(timestamp);
   }
 
   static logout(request: express.Request, response: express.Response) {
     request.session.destroy((error) => {
-      console.log("logout failed", error);
-      response.redirect("/")
+      if (error) {
+        console.log("logout failed", error);
+      }
+      response.redirect("/");
     });
   }
 }

@@ -49,9 +49,11 @@ export default class User {
     return await db.collection("users").findOne({ email });
   }
 
-  static async checkIfUsername(username: string) {
+  static checkIfUsername(username: string) {
     const db = getDB();
-    return await db.collection("users").findOne({ username });
+    return db
+      .collection("users")
+      .findOne({ username }) as Promise<WithId<IUserVM> | null>;
   }
 }
 

@@ -1,5 +1,7 @@
 import User from "@app/models/user";
 import express from "express";
+import * as argon2 from "argon2";
+import { ERROR_CODES } from "@app/utility/error-codes";
 export default class UserController {
   static getUsers = (
     _request: express.Request,
@@ -23,10 +25,14 @@ export default class UserController {
     if (isBodyValid != true) {
       response.send(isBodyValid);
     }
-    this.validateUserFieldsExistInDb(request.body).then((result) => {
+    this.validateUserFieldsExistInDb(request.body).then(async (result) => {
       if (result.success) {
-        const fullPath = "/user-img/" + request.file?.filename;
+        const fullPath = request.file?.filename
+          ? "/user-img/" + request.file?.filename
+          : "";
         const userInfo = { ...request.body, image: fullPath };
+        const hashPassword = await argon2.hash(userInfo.password);
+        userInfo.password = hashPassword;
         const user = new User(userInfo);
         user.add().then(
           (res) => {
@@ -49,9 +55,15 @@ export default class UserController {
       User.checkIfUsername(user.username),
     ]).then(([emailExists, usernameExists]) => {
       if (emailExists) {
-        return { error: "Email already Exists", statusCode: 400 };
+        return {
+          error: "Email already Exists",
+          statusCode: ERROR_CODES.ALREADY_EXISTS,
+        };
       } else if (usernameExists) {
-        return { error: "Username already Exists", statusCode: 400 };
+        return {
+          error: "Username already Exists",
+          statusCode: ERROR_CODES.ALREADY_EXISTS,
+        };
       } else {
         return { success: true };
       }
